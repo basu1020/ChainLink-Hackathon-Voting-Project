@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 
 const CreateElection = () => {
-    const [candidateArray, setcandidateArray] = useState(["NOTA"])
+
+    const [IpfsUploaded, setIpfsUploaded] = useState(false)
+    const [candidateArray, setcandidateArray] = useState(["NOTA ( by default )"])
     const [CandidateVal, setCandidateVal] = useState("")
+    const [jsonFile, setJSONfile] = useState("")
+
     const addCandidate = () => {
         CandidateVal && !candidateArray.includes(CandidateVal) &&setcandidateArray([...candidateArray, CandidateVal])
     }
@@ -14,42 +18,54 @@ const CreateElection = () => {
     }
 
     const onClickUpload = () => {
-        // 
+        console.log(JSON.parse(jsonFile)) 
+        // format of JSON file should be -> { VoterId : photoID }
         // write function that will convert Voter ID + Photo ID given in JSON file into a SHA256 hash 
         // upload it on ipfs and return the ipfs UID. 
+
+        // looping through JSON file and converting it to 
     }
 
     const onChangeCandidate = (e) => {
         setCandidateVal(e.target.value)
     }
 
+    const onChangeJSONfile = (e) => {
+        // how you access the dropped file. 
+        const file = e.target.files[0]
+        const reader = new FileReader()
+        reader.readAsText(file)
+        reader.onload = () => {
+            setJSONfile(reader.result)
+        }
+    }
+
     return (
-        
         <>
             <div className="base">
                 <div className="container">
                     <h1 className='mb-5 mt-5'>Create a New Election</h1>
-                    <div action="" className='row g-3'>
+                    <div className='row g-3'>
                         <div className="col-md-12">
                             <label htmlFor="inputElectionName" className='form-label'>Election Name</label>
                             <input type="text" className='form-control' id="inputElectionName" placeholder='Election Name' />
                         </div>
-                        <div class="mb-3">
-                            <label htmlFor="formFile" class="form-label"> Upload JSON file containing Voter Ids</label>
-                            <input class="form-control" type="file" id="formFile" />
+                        <div className="mb-3">
+                            <label htmlFor="formFile" className="form-label"> Upload JSON file containing Voter Ids </label>
+                            <div className="d-flex">
+                            <input className="form-control me-1" type="file" accept=".json" onChange={onChangeJSONfile}/>
+                            <button className='btn btn-primary' onClick={() => {onClickUpload()}}>
+                                Upload
+                            </button>
+                            </div>
                         </div>
-                        <button className='btn btn-primary'>
-                            Upload
-                        </button>
-
+                        <p> {`${typeof jsonFile}`}</p>
                         <div className="mb-3">
                             <label className='form-label'>
                                 Enter Candidates
                             </label>
                             <div className="d-flex">
-
                                 <input type="text" className='form-control' value={CandidateVal} onChange={onChangeCandidate}/>
-
                                 <button className='btn btn-primary ms-1' onClick={() => {addCandidate()}}> Add </button>
                             </div>
                         </div>
@@ -72,13 +88,13 @@ const CreateElection = () => {
                             Create Election
                         </button>
                     
-                        <div class="alert alert-danger" role="alert">
-                            <h4 class="alert-heading">Please Note!</h4>
+                        <div className="alert alert-danger" role="alert">
+                            <h4 className="alert-heading">Please Note!</h4>
                             <p>You must send 0.1 LINK for each Voted ID </p>
                             <p>Let's say there are 1000 different Voter IDs so you will be asked to provide 1000 * 0.1 = 100 LINK tokens to efficiently complete the elections </p>
                             <p>Why ?</p>
                             <p>Link Protocol uses 0.1 LINK tokens to fetch data from external API</p>
-                            <p class="mb-0">Address of Contract - "0x258Af4f648515C3928Bf6c9496B676b1629BcFE4"</p>
+                            <p className="mb-0">Address of Contract - "0x258Af4f648515C3928Bf6c9496B676b1629BcFE4"</p>
                         </div>
                     </div>
                 </div>
