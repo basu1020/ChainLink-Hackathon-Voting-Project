@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 
 const CandidateOptions = (props) => {
+    const changeVerified = () => {
+        props.setVerified(false)
+    }
 
     const [currentCandidate, setcurrentCandidate] = useState("Please select your candidate")
 
@@ -21,7 +24,10 @@ const CandidateOptions = (props) => {
                         </button>
                     </>
                 })}
-                <button className='btn btn-primary'>Submit Vote</button>
+                <button className='btn btn-primary'
+                onClick={() => {changeVerified()}}>
+                    Submit Vote
+                </button>
             </div>
         </>
     )
