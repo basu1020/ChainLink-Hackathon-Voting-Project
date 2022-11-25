@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import sha256 from 'crypto-js/sha256'
 
 const CreateElection = () => {
 
@@ -8,7 +9,7 @@ const CreateElection = () => {
     const [jsonFile, setJSONfile] = useState("")
 
     const addCandidate = () => {
-        CandidateVal && !candidateArray.includes(CandidateVal) &&setcandidateArray([...candidateArray, CandidateVal])
+        CandidateVal && !candidateArray.includes(CandidateVal) && setcandidateArray([...candidateArray, CandidateVal])
     }
 
     const onClickRemove = (val) => {
@@ -18,12 +19,16 @@ const CreateElection = () => {
     }
 
     const onClickUpload = () => {
-        console.log(JSON.parse(jsonFile)) 
-        // format of JSON file should be -> { VoterId : photoID }
-        // write function that will convert Voter ID + Photo ID given in JSON file into a SHA256 hash 
-        // upload it on ipfs and return the ipfs UID. 
+        const uploadingFile = {}
 
-        // looping through JSON file and converting it to 
+        for (const items in JSON.parse(jsonFile)) {
+            uploadingFile[sha256(items + JSON.parse(jsonFile)[items])] = true
+        }
+
+        console.log(uploadingFile)
+        // upload it on ipfs and return the ipfs UID. 
+        // first figure out the FaceId 
+
     }
 
     const onChangeCandidate = (e) => {
@@ -31,7 +36,7 @@ const CreateElection = () => {
     }
 
     const onChangeJSONfile = (e) => {
-        // how you access the dropped file. 
+        // how to access the dropped file. 
         const file = e.target.files[0]
         const reader = new FileReader()
         reader.readAsText(file)
@@ -59,7 +64,7 @@ const CreateElection = () => {
                             </button>
                             </div>
                         </div>
-                        <p> {`${typeof jsonFile}`}</p>
+                        
                         <div className="mb-3">
                             <label className='form-label'>
                                 Enter Candidates

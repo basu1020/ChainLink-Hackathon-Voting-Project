@@ -47,6 +47,11 @@ body{
 
 } */
 
+input{
+  background-color: black;
+  color: white;
+}
+
 .base{
   background-color: #0a1012;
   /* display: flex;
