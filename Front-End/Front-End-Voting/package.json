@@ -8,15 +8,21 @@
     "@testing-library/user-event": "^13.5.0",
     "crypto-js": "^4.1.1",
     "ethers": "^5.7.2",
+    "ipfs-car": "^0.9.1",
+    "nft.storage": "^7.0.0",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-dotenv": "^0.1.3",
     "react-router-dom": "^6.4.3",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "react-scripts": "^5.0.1",
+    "web-vitals": "^2.1.4",
+    "webpack": "^5.75.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts start && react-dotenv",
+    "build": "react-scripts build && react-dotenv",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -37,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "react-dotenv" : {
+    "whitelist": ["REACT_APP_NFT_STORE_API_KEY"]
   }
 }

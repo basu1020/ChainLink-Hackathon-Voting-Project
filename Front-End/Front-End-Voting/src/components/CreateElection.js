@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
-import sha256 from 'crypto-js/sha256'
+import React, { useState } from 'react';
+import sha256 from 'crypto-js/sha256';
+import { NFTStorage, File } from "nft.storage";
+// import env from "react-dotenv";
 
 const CreateElection = () => {
 
+    const [ipfsKey, setIPFSkey] = useState(process.env.REACT_APP_NFT_STORE_API_KEY)
     const [IpfsUploaded, setIpfsUploaded] = useState(false)
     const [candidateArray, setcandidateArray] = useState(["NOTA ( by default )"])
     const [CandidateVal, setCandidateVal] = useState("")
@@ -18,17 +21,40 @@ const CreateElection = () => {
         }))
     }
 
+    
+
     const onClickUpload = () => {
         const uploadingFile = {}
 
         for (const items in JSON.parse(jsonFile)) {
             uploadingFile[sha256(items + JSON.parse(jsonFile)[items])] = true
         }
-
+        
         console.log(uploadingFile)
-        // upload it on ipfs and return the ipfs UID. 
-        // first figure out the FaceId 
+        // uploadingFile
+        //figure out the FaceId - UNDONE (will do it)
+        // upload it on ipfs and return the ipfs UID. - DOING -> two ways popped up 1> Through Infura - X bcoz infura demands card   2> NFT.storage this way   
+        // const storeAsset = async () => {
+        //     const client = new NFTStorage({token : ipfsKey})
+        //     const metaData = await client.store({
+        //         name: "Elections",
+        //         description: "Uploading voterIDs and photoIDs",
+        //         image: new File([], 'Election.js'),
+        //         file: new File([JSON.stringify(uploadingFile)], 'Elections.json', {type: 'file/json'})
+        //     })
+        //     console.log(metaData.url)
+        //     return metaData.url
+        // }
+        // const metaData = storeAsset()
+        // return metaData
+        const newFile = new File([String(JSON.stringify(uploadingFile))], "uploadingFile", {type : "text/plain",})
 
+        const reader = new FileReader()
+        reader.readAsText(newFile)
+        reader.onload = () => {
+            console.log(typeof reader.result)
+        }
+        // return newFile
     }
 
     const onChangeCandidate = (e) => {
@@ -38,6 +64,7 @@ const CreateElection = () => {
     const onChangeJSONfile = (e) => {
         // how to access the dropped file. 
         const file = e.target.files[0]
+        console.log(typeof file)
         const reader = new FileReader()
         reader.readAsText(file)
         reader.onload = () => {
@@ -64,7 +91,7 @@ const CreateElection = () => {
                             </button>
                             </div>
                         </div>
-                        
+                        <p>{`${ipfsKey.charAt(10)}`}</p>
                         <div className="mb-3">
                             <label className='form-label'>
                                 Enter Candidates
@@ -99,7 +126,7 @@ const CreateElection = () => {
                             <p>Let's say there are 1000 different Voter IDs so you will be asked to provide 1000 * 0.1 = 100 LINK tokens to efficiently complete the elections </p>
                             <p>Why ?</p>
                             <p>Link Protocol uses 0.1 LINK tokens to fetch data from external API</p>
-                            <p className="mb-0">Address of Contract - "0x258Af4f648515C3928Bf6c9496B676b1629BcFE4"</p>
+                            <p className="mb-0">Address of Contract -  "0x258Af4f648515C3928Bf6c9496B676b1629BcFE4"</p>
                         </div>
                     </div>
                 </div>
