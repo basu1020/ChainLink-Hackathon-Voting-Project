@@ -21,9 +21,7 @@ const CreateElection = () => {
         }))
     }
 
-    
-
-    const onClickUpload = () => {
+    const onClickUpload = async () => {
         const uploadingFile = {}
 
         for (const items in JSON.parse(jsonFile)) {
@@ -31,30 +29,12 @@ const CreateElection = () => {
         }
         
         console.log(uploadingFile)
-        // uploadingFile
-        //figure out the FaceId - UNDONE (will do it)
-        // upload it on ipfs and return the ipfs UID. - DOING -> two ways popped up 1> Through Infura - X bcoz infura demands card   2> NFT.storage this way   
-        // const storeAsset = async () => {
-        //     const client = new NFTStorage({token : ipfsKey})
-        //     const metaData = await client.store({
-        //         name: "Elections",
-        //         description: "Uploading voterIDs and photoIDs",
-        //         image: new File([], 'Election.js'),
-        //         file: new File([JSON.stringify(uploadingFile)], 'Elections.json', {type: 'file/json'})
-        //     })
-        //     console.log(metaData.url)
-        //     return metaData.url
-        // }
-        // const metaData = storeAsset()
-        // return metaData
-        const newFile = new File([String(JSON.stringify(uploadingFile))], "uploadingFile", {type : "text/plain",})
-
-        const reader = new FileReader()
-        reader.readAsText(newFile)
-        reader.onload = () => {
-            console.log(typeof reader.result)
-        }
-        // return newFile
+    
+        const client = new NFTStorage({token: ipfsKey})
+        const cid = await client.storeDirectory([
+            new File([JSON.stringify(uploadingFile, null, 2)],'metadata.json')
+        ])
+        console.log(cid)
     }
 
     const onChangeCandidate = (e) => {
