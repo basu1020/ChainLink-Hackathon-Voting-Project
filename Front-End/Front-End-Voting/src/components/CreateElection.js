@@ -71,7 +71,7 @@ const CreateElection = () => {
                             </button>
                             </div>
                         </div>
-                        <p>{`${ipfsKey.charAt(10)}`}</p>
+                        
                         <div className="mb-3">
                             <label className='form-label'>
                                 Enter Candidates
