@@ -10,7 +10,6 @@ const Vote = () => {
         else {
             setVerified(false)
         }
-        // e.preventDefault()
     }
 
     const [candidateArray, setCandidateArray] = useState([{ name: "Rahul" }, { name: "Akshay" }, { name: "ModiJi" }])
@@ -25,12 +24,20 @@ const Vote = () => {
                             <div className='confirmVoterID'>
                                 <form class="row g-3">
                                     <div class="col-md-6">
-                                        <label for="inputEmail4" class="form-label">Election Name</label>
-                                        <input type="text" class="form-control" id="inputEmail4" />
+                                        <label for="inputEmail4" class="form-label"> Election Name </label>
+                                        <input type="text" class="form-control" />
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="inputPassword4" class="form-label">Voter Id</label>
-                                        <input type="number" class="form-control" id="inputPassword4" />
+                                        <label for="inputPassword4" class="form-label"> Voter Id </label>
+                                        <input type="number" class="form-control"  />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="inputPassword4" class="form-label"> Enter Name </label>
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="inputPassword4" class="form-label"> Secret 4 digit number </label>
+                                        <input type="number" class="form-control" />
                                     </div>
                                 </form>
                                 <div class="col-12 mt-3">

@@ -26,15 +26,11 @@ const CreateElection = () => {
 
         for (const items in JSON.parse(jsonFile)) {
             uploadingFile[sha256(items + JSON.parse(jsonFile)[items])] = true
-        }
-        
-        console.log(uploadingFile)
-    
+        }    
         const client = new NFTStorage({token: ipfsKey})
         const cid = await client.storeDirectory([
             new File([JSON.stringify(uploadingFile, null, 2)],'metadata.json')
         ])
-        console.log(cid)
     }
 
     const onChangeCandidate = (e) => {
