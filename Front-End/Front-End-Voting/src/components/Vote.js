@@ -32,12 +32,16 @@ const Vote = () => {
                                         <input type="number" class="form-control"  />
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="inputPassword4" class="form-label"> Enter Name </label>
+                                        <label for="inputPassword4" class="form-label"> Enter First Name </label>
                                         <input type="text" class="form-control" />
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="inputPassword4" class="form-label"> Secret 4 digit number </label>
-                                        <input type="number" class="form-control" />
+                                        <label for="inputPassword4" class="form-label"> Enter Middle Name </label>
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="inputPassword4" class="form-label"> Enter Last Name </label>
+                                        <input type="text" class="form-control" />
                                     </div>
                                 </form>
                                 <div class="col-12 mt-3">

@@ -48,6 +48,11 @@ const CreateElection = () => {
         }
     }
 
+    // sending create Election to smart contract. 
+    const createElection = () => {
+
+    }
+
     return (
         <>
             <div className="base">

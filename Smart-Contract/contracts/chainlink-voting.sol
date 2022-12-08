@@ -10,6 +10,8 @@ contract ChainlinkVotingProject is ChainlinkClient, ConfirmedOwner {
 
     bool public ongoingElecton;
     uint256[] internal resArray;
+    mapping(string => address) internal electionCreator;
+    mapping(string => string) internal electionNametoIpfslink;
     mapping(string => bool) internal electionsHappened;
     mapping(string => mapping(string => uint256)) internal count;
     mapping(string => mapping(string => bool)) internal voted;
@@ -38,12 +40,15 @@ contract ChainlinkVotingProject is ChainlinkClient, ConfirmedOwner {
     function createNewElection (
         string memory _electionName,
         string[] memory _candidate,
-        uint256 _endtimestmap
+        uint256 _endtimestmap,
+        string memory _ipfsLink
     ) public {
         require(electionsHappened[_electionName] != true, "This election already happened");
         require(ongoingElecton != true, "Can't create a new election right now,");
         VotingStructure memory _newVotingStructure = VotingStructure(_electionName, _candidate, _endtimestmap);
         elections.push(_newVotingStructure);
+        electionCreator[_electionName] = msg.sender;
+        electionNametoIpfslink[_electionName] = _ipfsLink;
     }
 
     // chainlink function
